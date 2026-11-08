@@ -155,6 +155,48 @@ select{background:var(--bg2);color:var(--ink);border:1px solid var(--line);paddi
   .logo span{display:none}
   .lrow{grid-template-columns:34px 38px 1fr 70px}
 }
+
+.handpick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.htile{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center!important;padding:10px 8px!important;flex:none!important}
+.htile svg{width:100%;height:auto;max-width:150px;display:block}
+.htile b{font-size:14px}
+.htile small{display:block}
+.htile.on{box-shadow:0 0 0 3px rgba(255,176,32,.25)}
+.shelf{margin:0 0 22px}
+.shelf h2{font-size:18px;margin:0 0 4px}
+.shelf .sub{color:var(--mute);font-size:13px;margin-bottom:10px}
+.shelfrow{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x proximity}
+.scard{flex:0 0 150px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.scard:hover{filter:brightness(1.15)}
+.scard .em{font-size:38px;line-height:1}
+.scard b{font-size:14px;line-height:1.2;min-height:34px;display:flex;align-items:center}
+.scard .bstars{font-size:16px;letter-spacing:1px}
+.tbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.search{flex:1 1 220px;min-width:160px;background:var(--bg2);border:2px solid var(--line);color:var(--ink);border-radius:12px;padding:10px 14px;font:inherit}
+.search:focus{outline:0;border-color:var(--amber)}
+select.sel{background:var(--bg2);border:2px solid var(--line);color:var(--ink);border-radius:12px;padding:9px 10px;font:inherit}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{background:var(--card);border:1px solid var(--line);color:var(--mute);padding:6px 12px;border-radius:999px;font-weight:700;font-size:13px}
+.tag.on{background:var(--amber);border-color:var(--amber);color:#2a1700}
+.tag i{font-style:normal;opacity:.7;margin-left:4px;font-weight:600}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.3px;background:var(--card2);color:var(--mute)}
+.pill.easy{background:#14532d;color:#86efac}.pill.medium{background:#713f12;color:#fde68a}.pill.hard{background:#7f1d1d;color:#fecaca}
+.songlist{display:flex;flex-direction:column;gap:8px}
+.lrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.lrow .em{font-size:22px;width:30px;text-align:center}
+.lrow .ti{flex:1;min-width:0}.lrow .ti b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow .ti small{color:var(--mute)}
+.lrow .bstars{font-size:16px;white-space:nowrap}
+.songcard .top{display:flex;gap:10px;align-items:flex-start}
+.songcard .em{font-size:28px;line-height:1}
+.dropzone.drag{outline:3px dashed var(--amber);outline-offset:6px}
+.bt{width:100%;border-collapse:collapse;font-size:14px}
+.bt td,.bt th{padding:4px 4px;text-align:left}
+.bt input,.bt select{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 8px;font:inherit}
+.bt-wrap{max-height:50vh;overflow:auto;margin:10px 0}
+.mbox.wide{max-width:760px;width:94vw}
+@media(max-width:560px){.handpick{gap:6px}.htile b{font-size:13px}}
 </style>
 </head>
 <body>
@@ -250,6 +292,12 @@ const RAW = [
   R:'G4/1.5 A4/.5 G4/1 F4/1 | E4/1 F4/1 G4/2 | D4/1 E4/1 F4/2 | E4/1 F4/1 G4/2 | G4/1.5 A4/.5 G4/1 F4/1 | E4/1 F4/1 G4/1 D4/1 | G4/1 E4/1 C4/2'},
  {id:'birthday',title:'Happy Birthday',bpm:96,ts:[3,4],pickup:1,
   R:'G4/.75 G4/.25 | A4/1 G4/1 C5/1 | B4/2 G4/.75 G4/.25 | A4/1 G4/1 D5/1 | C5/2 G4/.75 G4/.25 | G5/1 E5/1 C5/1 | B4/1 A4/1 F5/.75 F5/.25 | E5/1 C5/1 D5/1 | C5/3'},
+ {id:'row',title:'Row, Row, Row Your Boat',bpm:96,ts:[6,8],
+  R:'C4/1.5 C4/1.5 | C4/1 D4/.5 E4/1.5 | E4/1 D4/.5 E4/1 F4/.5 | G4/3 | C5/.5 C5/.5 C5/.5 G4/.5 G4/.5 G4/.5 | E4/.5 E4/.5 E4/.5 C4/.5 C4/.5 C4/.5 | G4/1 F4/.5 E4/1 D4/.5 | C4/3'},
+ {id:'macdonald',title:'Old MacDonald Had a Farm',bpm:100,ts:[4,4],
+  R:'C4/1 C4/1 C4/1 G4/1 | A4/1 A4/1 G4/2 | E4/1 E4/1 D4/1 D4/1 | C4/4'},
+ {id:'silent',title:'Silent Night',bpm:66,ts:[3,4],
+  R:'G4/1.5 A4/.5 G4/1 | E4/3 | G4/1.5 A4/.5 G4/1 | E4/3 | D5/2 D5/1 | B4/3 | C5/2 C5/1 | G4/3 | A4/2 A4/1 | C5/1.5 B4/.5 A4/1 | G4/1.5 A4/.5 G4/1 | E4/3 | A4/2 A4/1 | C5/1.5 B4/.5 A4/1 | G4/1.5 A4/.5 G4/1 | E4/3 | D5/2 D5/1 | F5/1.5 D5/.5 B4/1 | C5/3 | E5/3 | C5/1 G4/1 E4/1 | G4/1.5 F4/.5 D4/1 | C4/3'},
  {id:'ode-bh',title:'Ode to Joy (both hands)',bpm:92,ts:[4,4],
   R:'E4/1 E4/1 F4/1 G4/1 | G4/1 F4/1 E4/1 D4/1 | C4/1 C4/1 D4/1 E4/1 | E4/1.5 D4/.5 D4/2 | E4/1 E4/1 F4/1 G4/1 | G4/1 F4/1 E4/1 D4/1 | C4/1 C4/1 D4/1 E4/1 | D4/1.5 C4/.5 C4/2',
   L:'C3/4 | G2/4 | C3/4 | G2/4 | C3/4 | G2/4 | C3/4 | G2/2 C3/2'},
@@ -272,6 +320,19 @@ function finishSong(s) {
 }
 const SONGS = {};
 RAW.forEach(r => SONGS[r.id] = buildSong(r));
+// categories, emoji and levels for the built-in songs
+const CATS = [['kids', 'Nursery & kids'], ['first', 'First steps'], ['christmas', 'Christmas'], ['classical', 'Classical'], ['film', 'Film & TV'], ['game', 'Games'], ['pop', 'Pop & rock'], ['mine', 'My own'], ['other', 'Other']];
+const CATNAME = Object.fromEntries(CATS);
+const BMETA = {
+  'middle-c': { t: ['first'], e: '🎹' }, 'two-notes': { t: ['first'], e: '🎹' }, 'three-notes': { t: ['first'], e: '🎹' },
+  'hot-cross': { t: ['kids'], e: '🥖' }, 'mary': { t: ['kids'], e: '🐑' }, 'twinkle': { t: ['kids'], e: '⭐' },
+  'clair': { t: ['kids'], e: '🌙' }, 'frere': { t: ['kids'], e: '🔔' }, 'london': { t: ['kids'], e: '🌉' },
+  'birthday': { t: ['kids'], e: '🎂' }, 'row': { t: ['kids'], e: '🚣' }, 'macdonald': { t: ['kids'], e: '🐮' },
+  'jingle': { t: ['kids', 'christmas'], e: '🛷' }, 'silent': { t: ['christmas'], e: '🌟' },
+  'ode': { t: ['classical'], e: '🎶' }, 'ode-bh': { t: ['classical'], e: '🎶', l: 'medium' },
+  'twinkle-bh': { t: ['kids'], e: '⭐', l: 'medium' }, 'mary-bh': { t: ['kids'], e: '🐑', l: 'medium' }
+};
+
 
 // ---------- course ----------
 const COURSE = [
@@ -322,7 +383,7 @@ function newProfile(name, emoji) {
 function loadCustomSongs() {
   DB.songs.forEach(s => {
     if (SONGS[s.id]) return;
-    SONGS[s.id] = finishSong({ id: s.id, title: s.title, bpm: s.bpm, ts: s.ts, pickup: 0, custom: true,
+    SONGS[s.id] = finishSong({ id: s.id, title: s.title, bpm: s.bpm, ts: s.ts, pickup: 0, custom: true, artist: s.artist || '',
       notes: s.notes.map(a => ({ p: a[0], start: a[1], dur: a[2], hand: a[3] ? 'R' : 'L' })) });
   });
 }
@@ -818,7 +879,10 @@ function openLesson(l) {
   const song = SONGS[l.song];
   openPlayer({ song, key: l.id, lessonId: l.id, title: l.title, hand: l.hand, mode: l.mode });
 }
-function openSong(id) {
+async function openSong(id) {
+  if (!SONGS[id] && id.startsWith('lib:')) {
+    try { await loadLibSong(id); } catch (e) { toast(location.protocol === 'file:' ? 'Library songs need the app opened from a web address (GitHub Pages or a local server).' : 'Could not load that song.'); return; }
+  }
   const song = SONGS[id], hand = song.hasR && song.hasL ? 'B' : song.hasL ? 'L' : 'R';
   openPlayer({ song, key: 'song:' + id, title: song.title, hand, mode: 'wait' });
 }
@@ -849,6 +913,21 @@ function openPlayer(cfg) {
   if (!raf) raf = requestAnimationFrame(loop);
 }
 let setupState = { mode: 'wait', speed: 1 };
+function handSvg(h) {
+  const onL = h === 'L' || h === 'B', onR = h === 'R' || h === 'B';
+  const W = 15, blk = [0, 1, 2, 4, 5];
+  let s = '<svg viewBox="0 0 120 62" aria-hidden="true">';
+  for (let i = 0; i < 8; i++) {
+    const left = i < 4, on = left ? onL : onR, c = left ? '#c4b5fd' : '#5eead4';
+    s += `<rect x="${i * W + .75}" y="1" width="${W - 1.5}" height="60" rx="3" fill="${on ? c : '#e5e7f0'}" fill-opacity="${on ? 1 : .22}"/>`;
+  }
+  blk.forEach(k => {
+    const side = k <= 2 ? 'L' : 'R', on = side === 'L' ? onL : onR;
+    s += `<rect x="${(k + 1) * W - 4.5}" y="1" width="9" height="36" rx="2" fill="${on ? (side === 'L' ? '#5b21b6' : '#0f766e') : '#0b1028'}" fill-opacity="${on ? 1 : .55}"/>`;
+  });
+  s += `<line x1="60" y1="0" x2="60" y2="62" stroke="#0b1028" stroke-opacity=".5" stroke-width="1" stroke-dasharray="2 3"/>`;
+  return s + '</svg>';
+}
 function showSetup(show) {
   const o = $('#setup'), cfg = playerCfg; if (!o) return;
   $('#pPause').style.display = $('#pStop').style.display = show ? 'none' : '';
@@ -859,8 +938,10 @@ function showSetup(show) {
     <div class="opt"><label>How do you want to play?</label><div class="choices" id="oMode">
       <button class="choice" data-m="wait"><b>Wait for me</b><small>Notes pause until you play them. Up to 2 stars.</small></button>
       <button class="choice" data-m="play"><b>Play along</b><small>Keep up with the beat. Timing counts. Up to 3 stars.</small></button></div></div>
-    ${both ? `<div class="opt"><label>Which hand?</label><div class="choices" id="oHand">
-      <button class="choice" data-h="R"><b>Right</b></button><button class="choice" data-h="L"><b>Left</b></button><button class="choice" data-h="B"><b>Both</b></button></div></div>` : ''}
+    ${both ? `<div class="opt"><label>Which hand?</label><div class="handpick" id="oHand">
+      <button class="choice htile" data-h="L">${handSvg('L')}<b>Left hand</b><small>Lower keys</small></button>
+      <button class="choice htile" data-h="B">${handSvg('B')}<b>Both hands</b><small>Play together</small></button>
+      <button class="choice htile" data-h="R">${handSvg('R')}<b>Right hand</b><small>Higher keys</small></button></div></div>` : ''}
     <div class="opt"><label>Speed: <span id="spTxt"></span></label><input type="range" id="oSpeed" min="50" max="120" step="5"></div>
     <div class="row" style="justify-content:space-between"><button class="btn" id="oListen">▶ Listen first</button><button class="btn primary" id="oStart">Start</button></div></div>`;
   const syncUI = () => {
@@ -933,6 +1014,11 @@ function renderLearn() {
     ${nx >= 0 ? '<div class="mt"><button class="btn primary" id="goNext">Continue</button></div>' : ''}</div>
     <div class="stats"><div class="stat"><b>${p.streak.last === todayStr() || p.streak.last === ymd(new Date(Date.now() - 864e5)) ? p.streak.count : 0}🔥</b><span>Day streak</span></div>
     <div class="stat"><b>${totalStars(p)}⭐</b><span>Stars</span></div><div class="stat"><b>${wk}</b><span>XP this week</span></div></div></div>`;
+  const all = allItems(), shelf = (title, sub, list) => !list.length ? '' : `<section class="shelf"><h2>${title}</h2><p class="sub">${sub}</p><div class="shelfrow">${list.map(s =>
+    `<button class="scard" data-song="${s.id}"><span class="em">${s.emoji}</span><b>${esc(s.title)}</b><span class="bstars">${stars(songStars(p, s.id))}</span></button>`).join('')}</div></section>`;
+  h += shelf('Nursery rhymes &amp; kids&rsquo; songs', 'Tunes everyone knows. Tap one to play.', all.filter(s => s.kind === 'b' && s.tags.includes('kids') && s.lvl === 'easy'));
+  h += shelf('Christmas', 'Songs for the holidays.', all.filter(s => s.tags.includes('christmas')));
+  h += `<div class="row" style="margin:0 0 22px"><button class="btn" id="goSongs">Browse all ${all.length} songs</button></div>`;
   let idx = 0;
   COURSE.forEach((lv, li) => {
     const got = lv.lessons.reduce((s, l) => s + lessonStars(p, l.id), 0);
@@ -947,28 +1033,71 @@ function renderLearn() {
   $('#view').innerHTML = h;
   $$('.bubble').forEach(b => b.onclick = () => { const i = +b.dataset.i; if (!isUnlocked(i)) return toast('Pass the lesson before this one to unlock it.'); openLesson(ALL_LESSONS[i]); });
   const gn = $('#goNext'); if (gn) gn.onclick = () => openLesson(ALL_LESSONS[nx]);
+  $$('[data-song]').forEach(b => b.onclick = () => openSong(b.dataset.song));
+  const gs = $('#goSongs'); if (gs) gs.onclick = () => go('songs');
 }
+const SF = { q: '', tag: 'all', lvl: 'all', sort: 'title' };
 function renderSongs() {
-  const p = me();
-  const list = Object.values(SONGS).filter(s => !s.custom);
-  const custom = Object.values(SONGS).filter(s => s.custom);
-  const card = s => {
-    const pr = p.prog['song:' + s.id] || { stars: 0 };
-    return `<div class="card songcard"><h3>${esc(s.title)}</h3><small>${s.bpm} bpm${s.hasL && s.hasR ? ', both hands' : ''}, ${s.notes.length} notes</small>
-      <div class="bstars" style="font-size:22px">${stars(pr.stars)}</div>
-      <div class="row"><button class="btn primary sm" data-play="${s.id}">Play</button>${s.custom ? `<button class="btn danger sm" data-del="${s.id}">Delete</button>` : ''}</div></div>`;
-  };
-  $('#view').innerHTML = `<div class="page"><div class="row" style="justify-content:space-between;margin-bottom:14px"><h1>Songs</h1>
-    <div class="row"><button class="btn" id="freeBtn">🎹 Free play</button><button class="btn primary" id="impBtn">+ Add MIDI file</button><input type="file" id="impFile" accept=".mid,.midi" hidden></div></div>
-    <p class="muted" style="margin-bottom:16px">Practise any song. Songs here earn half XP compared with course lessons. Add your own with a MIDI file (.mid).</p>
-    <h3 style="margin:10px 0">My songs</h3>
-    ${custom.length ? `<div class="grid">${custom.map(card).join('')}</div>` : '<p class="muted">Nothing here yet. Add a MIDI file and it will appear here.</p>'}
-    <h3 style="margin:22px 0 10px">Built-in songs</h3><div class="grid">${list.map(card).join('')}</div></div>`;
-  $$('[data-play]').forEach(b => b.onclick = () => openSong(b.dataset.play));
-  $$('[data-del]').forEach(b => b.onclick = () => { if (!confirm('Delete this song?')) return; DB.songs = DB.songs.filter(s => s.id !== b.dataset.del); delete SONGS[b.dataset.del]; save(); renderSongs(); });
+  const items = allItems(), counts = {};
+  items.forEach(s => s.tags.forEach(t => counts[t] = (counts[t] || 0) + 1));
+  const view = DB.settings.songView || 'grid';
+  const chip = (k, label, n) => `<button class="tag ${SF.tag === k ? 'on' : ''}" data-tag="${k}">${esc(label)}<i>${n}</i></button>`;
+  $('#view').innerHTML = `<div class="page dropzone" id="dz"><div class="row" style="justify-content:space-between;margin-bottom:14px"><h1>Songs</h1>
+    <div class="row"><button class="btn" id="freeBtn">🎹 Free play</button><button class="btn primary" id="impBtn">+ Add MIDI files</button><input type="file" id="impFile" accept=".mid,.midi" multiple hidden></div></div>
+    <p class="muted" style="margin-bottom:14px">Practise any song. Songs here earn half XP compared with course lessons. Add your own: pick several .mid files at once, or drop them on this page.</p>
+    ${LIBSTATE === 'none' ? '<div class="note-box" style="margin-bottom:14px">The bundled song library did not load. It needs the app to be opened from a web address (GitHub Pages, or a local server), not straight from a file.</div>' : ''}
+    <div class="tbar"><input class="search" id="sQ" type="search" placeholder="Search songs or artists" value="${esc(SF.q)}">
+      <select class="sel" id="sLvl"><option value="all">Any level</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select>
+      <select class="sel" id="sSort"><option value="title">A to Z</option><option value="artist">Artist</option><option value="level">Easiest first</option><option value="stars">Most stars</option><option value="new">Newest first</option></select>
+      <div class="seg" id="sView"><button data-v="grid" class="${view === 'grid' ? 'on' : ''}">Cards</button><button data-v="list" class="${view === 'list' ? 'on' : ''}">List</button></div></div>
+    <div class="chips">${chip('all', 'All', items.length)}${CATS.filter(c => counts[c[0]]).map(c => chip(c[0], c[1], counts[c[0]])).join('')}</div>
+    <div id="songList"></div></div>`;
+  $('#sLvl').value = SF.lvl; $('#sSort').value = SF.sort;
+  $$('[data-tag]').forEach(b => b.onclick = () => { SF.tag = b.dataset.tag; $$('[data-tag]').forEach(x => x.classList.toggle('on', x === b)); drawSongList(); });
+  $('#sQ').oninput = e => { SF.q = e.target.value; drawSongList(); };
+  $('#sLvl').onchange = e => { SF.lvl = e.target.value; drawSongList(); };
+  $('#sSort').onchange = e => { SF.sort = e.target.value; drawSongList(); };
+  $$('#sView button').forEach(b => b.onclick = () => { DB.settings.songView = b.dataset.v; save(); renderSongs(); });
   $('#freeBtn').onclick = openFree;
   $('#impBtn').onclick = () => $('#impFile').click();
-  $('#impFile').onchange = e => importMidiFile(e.target.files[0]);
+  $('#impFile').onchange = e => { const f = [...e.target.files]; e.target.value = ''; openBatch(f); };
+  const dz = $('#dz');
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add('drag'); };
+  dz.ondragleave = e => { if (e.target === dz) dz.classList.remove('drag'); };
+  dz.ondrop = e => { e.preventDefault(); dz.classList.remove('drag'); openBatch(e.dataTransfer.files); };
+  drawSongList();
+}
+function drawSongList() {
+  const p = me(), view = DB.settings.songView || 'grid';
+  const q = SF.q.trim().toLowerCase(), words = q.split(/\s+/).filter(Boolean);
+  let items = allItems().filter(s => {
+    if (SF.tag !== 'all' && !s.tags.includes(SF.tag)) return false;
+    if (SF.lvl !== 'all' && s.lvl !== SF.lvl) return false;
+    const hay = (s.title + ' ' + s.artist + ' ' + s.tags.map(t => CATNAME[t] || t).join(' ')).toLowerCase();
+    return words.every(w => hay.includes(w));
+  });
+  const idx = new Map(allItems().map((s, i) => [s.id, i]));
+  const cmp = {
+    title: (a, b) => a.title.localeCompare(b.title),
+    artist: (a, b) => (a.artist || '~').localeCompare(b.artist || '~') || a.title.localeCompare(b.title),
+    level: (a, b) => LVL_ORDER[a.lvl] - LVL_ORDER[b.lvl] || a.n - b.n,
+    stars: (a, b) => songStars(p, b.id) - songStars(p, a.id) || a.title.localeCompare(b.title),
+    new: (a, b) => (b.kind === 'c') - (a.kind === 'c') || idx.get(b.id) - idx.get(a.id)
+  }[SF.sort];
+  items.sort(cmp);
+  const lvlPill = s => `<span class="pill ${s.lvl}">${s.lvl.toUpperCase()}</span>`;
+  const sub = s => [s.artist, s.both ? 'both hands' : 'one hand'].filter(Boolean).join(' · ');
+  const acts = s => `<button class="btn primary sm" data-play="${s.id}">Play</button>${s.kind === 'c' ? `<button class="btn sm" data-edit="${s.id}">Edit</button><button class="btn danger sm" data-del="${s.id}">Delete</button>` : ''}`;
+  const card = s => `<div class="card songcard"><div class="top"><span class="em">${s.emoji}</span><div><h3>${esc(s.title)}</h3><small>${esc(sub(s))}</small></div></div>
+      <div class="row">${lvlPill(s)}<div class="bstars" style="font-size:20px">${stars(songStars(p, s.id))}</div></div><div class="row">${acts(s)}</div></div>`;
+  const rowH = s => `<div class="lrow"><span class="em">${s.emoji}</span><div class="ti"><b>${esc(s.title)}</b><small>${esc(sub(s))}</small></div>${lvlPill(s)}<div class="bstars">${stars(songStars(p, s.id))}</div>${acts(s)}</div>`;
+  const empty = SF.tag === 'mine' ? 'Nothing here yet. Add a MIDI file and it will appear here.' : 'No songs match. Try a different search or category.';
+  $('#songList').innerHTML = items.length
+    ? `<p class="muted" style="margin-bottom:10px;font-size:13px">${items.length} song${items.length === 1 ? '' : 's'}</p>` + (view === 'list' ? `<div class="songlist">${items.map(rowH).join('')}</div>` : `<div class="grid">${items.map(card).join('')}</div>`)
+    : `<p class="muted">${empty}</p>`;
+  $$('#songList [data-play]').forEach(b => b.onclick = () => openSong(b.dataset.play));
+  $$('#songList [data-edit]').forEach(b => b.onclick = () => editSong(b.dataset.edit));
+  $$('#songList [data-del]').forEach(b => b.onclick = () => { if (!confirm('Delete this song?')) return; DB.songs = DB.songs.filter(s => s.id !== b.dataset.del); delete SONGS[b.dataset.del]; save(); renderSongs(); });
 }
 function renderLeague() {
   const wk = weekStart(), pw = prevWeekStart();
@@ -1087,24 +1216,103 @@ function parseMidi(buf) {
   }
   return { ppq: div, bpm: clamp(Math.round(60e6 / tempo), 40, 200), ts, tracks };
 }
-async function importMidiFile(file) {
-  if (!file) return;
-  try {
-    const m = parseMidi(await file.arrayBuffer());
-    if (!m.tracks.length) throw new Error('No notes found in that file');
-    let all = [];
-    const avg = t => t.notes.reduce((s, n) => s + n.p, 0) / t.notes.length;
-    if (m.tracks.length === 2) { const [a, b] = m.tracks[0] && avg(m.tracks[0]) >= avg(m.tracks[1]) ? [m.tracks[0], m.tracks[1]] : [m.tracks[1], m.tracks[0]]; a.notes.forEach(n => all.push({ ...n, r: 1 })); b.notes.forEach(n => all.push({ ...n, r: 0 })); }
-    else m.tracks.forEach(t => t.notes.forEach(n => all.push({ ...n, r: n.p >= 60 ? 1 : 0 })));
-    const q = x => Math.round(x * 32) / 32, bb = m.ts[0] * 4 / m.ts[1];
-    all = all.map(n => [n.p, q(n.s / m.ppq), Math.max(.05, q((n.e - n.s) / m.ppq)), n.r]).filter(n => n[2] >= .05);
-    const minS = Math.min(...all.map(n => n[1])), off = Math.floor(minS / bb) * bb;
-    all.forEach(n => n[1] = q(n[1] - off));
-    let trimmed = false; if (all.length > 3000) { all.sort((a, b) => a[1] - b[1]); all = all.slice(0, 3000); trimmed = true; }
-    const id = 'c' + Date.now().toString(36), title = file.name.replace(/\.(mid|midi)$/i, '').replace(/[_-]+/g, ' ').slice(0, 40);
-    DB.songs.push({ id, title, bpm: m.bpm, ts: m.ts, notes: all }); save(); loadCustomSongs();
-    toast(`Added "${title}"${trimmed ? ' (long song trimmed)' : ''}`); renderSongs();
-  } catch (e) { toast(e.message || 'Could not read that MIDI file'); }
+function midiToNotes(buf) {
+  const m = parseMidi(buf);
+  if (!m.tracks.length) throw new Error('No notes found in that file');
+  let all = [];
+  const avg = t => t.notes.reduce((s, n) => s + n.p, 0) / t.notes.length;
+  if (m.tracks.length === 2) { const [a, b] = avg(m.tracks[0]) >= avg(m.tracks[1]) ? [m.tracks[0], m.tracks[1]] : [m.tracks[1], m.tracks[0]]; a.notes.forEach(n => all.push({ ...n, r: 1 })); b.notes.forEach(n => all.push({ ...n, r: 0 })); }
+  else m.tracks.forEach(t => t.notes.forEach(n => all.push({ ...n, r: n.p >= 60 ? 1 : 0 })));
+  const q = x => Math.round(x * 96) / 96, bb = m.ts[0] * 4 / m.ts[1];
+  all = all.map(n => [n.p, q(n.s / m.ppq), Math.max(.05, q((n.e - n.s) / m.ppq)), n.r]).filter(n => n[2] >= .05);
+  const minS = Math.min(...all.map(n => n[1])), off = Math.floor(minS / bb) * bb;
+  all.forEach(n => n[1] = q(n[1] - off));
+  let trimmed = false; if (all.length > 4000) { all.sort((a, b) => a[1] - b[1]); all = all.slice(0, 4000); trimmed = true; }
+  all.forEach(n => { n[1] = +n[1].toFixed(4); n[2] = +n[2].toFixed(4); });
+  return { bpm: m.bpm, ts: m.ts, notes: all, trimmed };
+}
+
+// ---------- bundled library (songs/songs.json, loaded on demand) ----------
+let LIB = [], LIBSTATE = 'loading';
+function loadManifest() {
+  fetch('songs.json').then(r => { if (!r.ok) throw 0; return r.json(); })
+    .then(j => { LIB = j; LIBSTATE = 'ok'; if (screen === 'songs') renderSongs(); if (screen === 'learn') renderLearn(); })
+    .catch(() => { LIBSTATE = 'none'; if (screen === 'songs') renderSongs(); });
+}
+async function loadLibSong(id) {
+  const m = LIB.find(x => 'lib:' + x.f === id); if (!m) throw new Error('missing');
+  const r = await fetch('songs/' + m.f); if (!r.ok) throw new Error('fetch');
+  const n = midiToNotes(await r.arrayBuffer());
+  SONGS[id] = finishSong({ id, title: m.t, artist: m.a, bpm: n.bpm, ts: n.ts, pickup: 0, lib: true,
+    notes: n.notes.map(a => ({ p: a[0], start: a[1], dur: a[2], hand: a[3] ? 'R' : 'L' })) });
+}
+
+// ---------- one list of every song (built-in, library, yours) ----------
+const LVL_ORDER = { easy: 0, medium: 1, hard: 2 };
+function allItems() {
+  const out = [];
+  RAW.forEach(r => { const s = SONGS[r.id], m = BMETA[r.id] || { t: ['other'], e: '🎵' };
+    out.push({ id: r.id, title: r.title, artist: '', tags: m.t, lvl: m.l || 'easy', kind: 'b', emoji: m.e, both: s.hasL && s.hasR, n: s.notes.length }); });
+  LIB.forEach(m => out.push({ id: 'lib:' + m.f, title: m.t, artist: m.a, tags: m.tags, lvl: m.lvl, kind: 'l', emoji: '🎵', both: m.h === 'B', n: m.n }));
+  DB.songs.forEach(c => out.push({ id: c.id, title: c.title, artist: c.artist || '', tags: ['mine', ...(c.tags || [])], lvl: c.lvl || 'medium', kind: 'c', emoji: '🎵',
+    both: c.notes.some(n => n[3]) && c.notes.some(n => !n[3]), n: c.notes.length }));
+  return out;
+}
+const songStars = (p, id) => (p.prog['song:' + id] && p.prog['song:' + id].stars) || 0;
+
+// ---------- batch import ----------
+function guessMeta(name) {
+  let b = name.replace(/\.(mid|midi)$/i, '').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+  let artist = '', title = b;
+  const m = b.match(/^(.+?)\s+-\s+(.+)$/);
+  if (m) { artist = m[1].trim(); title = m[2].trim(); }
+  else title = b.replace(/-/g, ' ').replace(/\s+/g, ' ');
+  return { title: title.slice(0, 60), artist: artist.slice(0, 40) };
+}
+const catOptions = (sel) => CATS.filter(c => c[0] !== 'mine').map(c => `<option value="${c[0]}" ${c[0] === sel ? 'selected' : ''}>${esc(c[1])}</option>`).join('');
+function openBatch(fileList) {
+  const files = [...fileList].filter(f => /\.midi?$/i.test(f.name));
+  if (!files.length) return toast('Pick some MIDI (.mid) files.');
+  const rows = files.map(f => ({ f, ...guessMeta(f.name), cat: 'other' }));
+  showModal(`<h2>Add ${rows.length} song${rows.length > 1 ? 's' : ''}</h2>
+    <p class="muted" style="margin-top:4px">Check the names and pick a category. File names like <b>Artist - Title.mid</b> are split automatically.</p>
+    <div class="row mt"><label class="muted">Category for all:</label><select class="sel" id="bAll"><option value="">Choose...</option>${catOptions('')}</select></div>
+    <div class="bt-wrap"><table class="bt"><tr><th>Title</th><th>Artist</th><th>Category</th></tr>
+    ${rows.map((r, i) => `<tr><td><input data-i="${i}" data-k="title" value="${esc(r.title)}"></td><td><input data-i="${i}" data-k="artist" value="${esc(r.artist)}"></td>
+      <td><select data-i="${i}" data-k="cat">${catOptions(r.cat)}</select></td></tr>`).join('')}</table></div>
+    <div id="bMsg" class="muted"></div>
+    <div class="row mt" style="justify-content:flex-end"><button class="btn" id="bCancel">Cancel</button><button class="btn primary" id="bGo">Add ${rows.length}</button></div>`, true);
+  $('#modal .mbox').classList.add('wide');
+  $$('#modal [data-k]').forEach(el => el.oninput = el.onchange = () => { rows[+el.dataset.i][el.dataset.k] = el.value; });
+  $('#bAll').onchange = e => { if (!e.target.value) return; rows.forEach(r => r.cat = e.target.value); $$('#modal select[data-k=cat]').forEach(s => s.value = e.target.value); };
+  $('#bCancel').onclick = closeModal;
+  $('#bGo').onclick = async () => {
+    $('#bGo').disabled = true; let ok = 0, bad = [], trimmed = 0;
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i]; $('#bMsg').textContent = `Reading ${i + 1} of ${rows.length}...`;
+      try {
+        const n = midiToNotes(await r.f.arrayBuffer());
+        const nps = n.notes.length / Math.max(1, Math.max(...n.notes.map(x => x[1] + x[2])) * 60 / n.bpm);
+        DB.songs.push({ id: 'c' + Date.now().toString(36) + i, title: (r.title || r.f.name).trim(), artist: r.artist.trim(), tags: r.cat === 'other' ? [] : [r.cat],
+          lvl: nps < 2.2 ? 'easy' : nps < 4.2 ? 'medium' : 'hard', bpm: n.bpm, ts: n.ts, notes: n.notes });
+        ok++; if (n.trimmed) trimmed++;
+      } catch (e) { bad.push(r.f.name); }
+    }
+    try { save(); } catch (e) { toast('Browser storage is full. Delete a few songs and try again.'); }
+    loadCustomSongs(); closeModal();
+    toast(`Added ${ok} song${ok === 1 ? '' : 's'}${bad.length ? `, ${bad.length} could not be read` : ''}${trimmed ? `, ${trimmed} long one${trimmed > 1 ? 's' : ''} trimmed` : ''}`);
+    renderSongs();
+  };
+}
+function editSong(id) {
+  const c = DB.songs.find(s => s.id === id); if (!c) return;
+  showModal(`<h2>Edit song</h2><div class="opt mt"><label>Title</label><input class="search" id="eT" value="${esc(c.title)}"></div>
+    <div class="opt mt"><label>Artist</label><input class="search" id="eA" value="${esc(c.artist || '')}"></div>
+    <div class="opt mt"><label>Category</label><select class="sel" id="eC">${catOptions((c.tags || [])[0] || 'other')}</select></div>
+    <div class="row mt" style="justify-content:flex-end"><button class="btn" id="eX">Cancel</button><button class="btn primary" id="eS">Save</button></div>`);
+  $('#eX').onclick = closeModal;
+  $('#eS').onclick = () => { c.title = $('#eT').value.trim() || c.title; c.artist = $('#eA').value.trim(); const k = $('#eC').value; c.tags = k === 'other' ? [] : [k];
+    if (SONGS[id]) { SONGS[id].title = c.title; SONGS[id].artist = c.artist; } save(); closeModal(); renderSongs(); };
 }
 
 // ---------- wiring ----------
@@ -1114,9 +1322,10 @@ $('#midiChip').onclick = openSettings;
 window.addEventListener('beforeunload', () => stopRun());
 window.addEventListener('pointerup', onCanvasUp);
 initMIDI();
+loadManifest();
 updateProfBtn();
 go('learn');
-window.__app = { noteOn, noteOff, get run() { return run; }, get DB() { return DB; }, openLesson, openSong, ALL_LESSONS, SONGS, go, parseMidi, finishRun };
+window.__app = { noteOn, noteOff, get run() { return run; }, get DB() { return DB; }, openLesson, openSong, ALL_LESSONS, SONGS, go, parseMidi, finishRun, midiToNotes, allItems, openBatch, get LIB() { return LIB; } };
 </script>
 </body>
 </html>
