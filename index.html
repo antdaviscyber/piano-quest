@@ -165,8 +165,18 @@ select{background:var(--bg2);color:var(--ink);border:1px solid var(--line);paddi
 .shelf{margin:0 0 22px}
 .shelf h2{font-size:18px;margin:0 0 4px}
 .shelf .sub{color:var(--mute);font-size:13px;margin-bottom:10px}
-.shelfrow{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x proximity}
-.scard{flex:0 0 150px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px;
+.shelfwrap{position:relative}
+.shelfrow{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;scroll-behavior:smooth}
+.shelfrow::-webkit-scrollbar{display:none}
+.shelfwrap::after{content:'';position:absolute;top:0;right:0;bottom:12px;width:36px;pointer-events:none;background:linear-gradient(90deg,transparent,var(--bg))}
+.sarrow{position:absolute;top:50%;transform:translateY(-60%);z-index:2;width:48px;height:48px;border-radius:50%;border:2px solid var(--line);
+  background:rgba(26,35,80,.92);color:#fff;font-size:24px;font-weight:800;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.sarrow:active{background:var(--amber);color:#2a1700}
+.sarrow.l{left:-6px}.sarrow.r{right:-6px}
+.sarrow[hidden]{display:none}
+.shelfwrap.end::after{display:none}
+.scard{flex:0 0 150px;scroll-snap-align:start;min-height:130px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px;
   display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .scard:hover{filter:brightness(1.15)}
 .scard .em{font-size:38px;line-height:1}
@@ -345,6 +355,7 @@ const COURSE = [
  ]},
  {id:'L2',title:'Little Tunes',emoji:'🎵',blurb:'Keep the beat and play whole songs',lessons:[
    {id:'l2-1',song:'twinkle',title:'Twinkle Twinkle',hand:'R',mode:'play'},
+   {id:'l2-5',song:'macdonald',title:'Old MacDonald',hand:'R',mode:'play'},
    {id:'l2-2',song:'clair',title:'Au Clair de la Lune',hand:'R',mode:'play'},
    {id:'l2-3',song:'ode',title:'Ode to Joy',hand:'R',mode:'play'},
    {id:'l2-4',song:'jingle',title:'Jingle Bells',hand:'R',mode:'play'},
@@ -353,6 +364,8 @@ const COURSE = [
    {id:'l3-1',song:'frere',title:'Frère Jacques',hand:'R',mode:'play'},
    {id:'l3-2',song:'london',title:'London Bridge',hand:'R',mode:'play'},
    {id:'l3-3',song:'birthday',title:'Happy Birthday',hand:'R',mode:'play'},
+   {id:'l3-4',song:'row',title:'Row, Row, Row Your Boat',hand:'R',mode:'play'},
+   {id:'l3-5',song:'silent',title:'Silent Night',hand:'R',mode:'play'},
  ]},
  {id:'L4',title:'Two Hands',emoji:'🙌',blurb:'Left hand joins the party',lessons:[
    {id:'l4-1',song:'ode-bh',title:'Ode to Joy: left hand',hand:'L',mode:'wait'},
@@ -1014,8 +1027,8 @@ function renderLearn() {
     ${nx >= 0 ? '<div class="mt"><button class="btn primary" id="goNext">Continue</button></div>' : ''}</div>
     <div class="stats"><div class="stat"><b>${p.streak.last === todayStr() || p.streak.last === ymd(new Date(Date.now() - 864e5)) ? p.streak.count : 0}🔥</b><span>Day streak</span></div>
     <div class="stat"><b>${totalStars(p)}⭐</b><span>Stars</span></div><div class="stat"><b>${wk}</b><span>XP this week</span></div></div></div>`;
-  const all = allItems(), shelf = (title, sub, list) => !list.length ? '' : `<section class="shelf"><h2>${title}</h2><p class="sub">${sub}</p><div class="shelfrow">${list.map(s =>
-    `<button class="scard" data-song="${s.id}"><span class="em">${s.emoji}</span><b>${esc(s.title)}</b><span class="bstars">${stars(songStars(p, s.id))}</span></button>`).join('')}</div></section>`;
+  const all = allItems(), shelf = (title, sub, list) => !list.length ? '' : `<section class="shelf"><h2>${title}</h2><p class="sub">${sub}</p><div class="shelfwrap"><button class="sarrow l" aria-label="Scroll left" hidden>&#8249;</button><button class="sarrow r" aria-label="Scroll right">&#8250;</button><div class="shelfrow">${list.map(s =>
+    `<button class="scard" data-song="${s.id}"><span class="em">${s.emoji}</span><b>${esc(s.title)}</b><span class="bstars">${stars(songStars(p, s.id))}</span></button>`).join('')}</div></div></section>`;
   h += shelf('Nursery rhymes &amp; kids&rsquo; songs', 'Tunes everyone knows. Tap one to play.', all.filter(s => s.kind === 'b' && s.tags.includes('kids') && s.lvl === 'easy'));
   h += shelf('Christmas', 'Songs for the holidays.', all.filter(s => s.tags.includes('christmas')));
   h += `<div class="row" style="margin:0 0 22px"><button class="btn" id="goSongs">Browse all ${all.length} songs</button></div>`;
@@ -1034,6 +1047,18 @@ function renderLearn() {
   $$('.bubble').forEach(b => b.onclick = () => { const i = +b.dataset.i; if (!isUnlocked(i)) return toast('Pass the lesson before this one to unlock it.'); openLesson(ALL_LESSONS[i]); });
   const gn = $('#goNext'); if (gn) gn.onclick = () => openLesson(ALL_LESSONS[nx]);
   $$('[data-song]').forEach(b => b.onclick = () => openSong(b.dataset.song));
+  $$('.shelfwrap').forEach(w => {
+    const row = w.querySelector('.shelfrow'), L = w.querySelector('.sarrow.l'), R = w.querySelector('.sarrow.r');
+    const upd = () => { L.hidden = row.scrollLeft < 8; R.hidden = row.scrollLeft + row.clientWidth >= row.scrollWidth - 8; w.classList.toggle('end', R.hidden); };
+    L.onclick = () => row.scrollBy({ left: -row.clientWidth * .8, behavior: 'smooth' });
+    R.onclick = () => row.scrollBy({ left: row.clientWidth * .8, behavior: 'smooth' });
+    row.addEventListener('scroll', upd, { passive: true }); upd();
+    let dn = false, sx = 0, sl = 0, moved = false;  // mouse drag-to-scroll
+    row.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; dn = true; moved = false; sx = e.clientX; sl = row.scrollLeft; row.style.scrollBehavior = 'auto'; });
+    window.addEventListener('pointermove', e => { if (!dn) return; const dx = e.clientX - sx; if (Math.abs(dx) > 5) moved = true; row.scrollLeft = sl - dx; });
+    window.addEventListener('pointerup', () => { if (!dn) return; dn = false; row.style.scrollBehavior = ''; });
+    row.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+  });
   const gs = $('#goSongs'); if (gs) gs.onclick = () => go('songs');
 }
 const SF = { q: '', tag: 'all', lvl: 'all', sort: 'title' };
